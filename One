@@ -1,0 +1,32 @@
+Write a query to find the second highest salary from the Employee table.
+                  select e1.salary from Employee e1 where 1=(select count(e2.salary) from Employee e2 where e1.salary>e2.salary)
+                  OR
+                  select max(salary) from Employee where salary<(select max(salary) from Employee);
+
+Write a query to fetch the employees whose name starts with 'A' from the Employee table.
+
+                select name from Employee where name like 'A%';
+
+Write a query to count the number of employees in each department.
+               select department,count(EmpId) from Employee group by department;
+
+
+Write a query to update the salary column by adding 5000 for employees in the 'IT' department.
+                update Employee set salary=salary+5000 where department='IT';
+
+Write a query to fetch the details of employees who earn more than the average salary.
+                select * from Employee where salary>(select avg(salary) from Employee);
+
+Write a query to find the youngest employee in each department.
+                SELECT name, age FROM Employee WHERE age = (SELECT MIN(age) FROM Employee);
+
+Write a query to fetch the employees who are not in the 'HR' or 'Finance' department.
+                select name from Employee where department not in ('HR','Finance');
+
+Write a query to delete duplicate records from the Employee table, keeping only the first occurrence.
+                DELETE FROM Employee WHERE id IN ( SELECT e1.id FROM Employee e1 WHERE e1.id > (SELECT MIN(e2.id) FROM Employee e2 WHERE e2.id = e1.id));
+
+Write a query to fetch the top 3 highest-paid employees in the company.
+                select * from Employee where salary>=(select e1.salary from Employee e1 where 2=(select count(e2.salary) from Employee e2 where e1.salary>e2.salary) );
+Write a query to fetch the employees who belong to a department where the average salary is greater than 50,000.
+                SELECT * FROM Employee  WHERE department IN (SELECT department FROM Employee GROUP BY department HAVING AVG(salary) > 50000);
