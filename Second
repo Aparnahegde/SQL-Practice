@@ -1,0 +1,36 @@
+Write a query to find employees whose salary is equal to the second-highest salary in their department.
+
+              select name from Employee where salary in(select e1.salary from Employee  e1 where 1=(select count(e2.salary) from Employee e2 where e1.salary> e2.salary and e1.department=e2.department))
+
+
+Write a query to display the total salary expenditure for each department.
+              select department,sum(salary) as tot_salary from Employee group by department;
+
+
+Write a query to fetch employees who joined in the year 2023 (assuming a join_date column exists).
+              select name from Employee where join_date>='2023-01-01' and join_date<='2023-12-31';  or select name from Employee where year(join_date)=2023
+
+
+Write a query to find all departments where the number of employees exceeds 10.
+              select department from Employee group by department having count(empId)>10
+
+Write a query to display the names of employees along with their managers' names (assuming a manager_id column exists in the Employee table that links to the EmpId column).
+              select e1.name as EmpName ,e2.name as ManagerName from Employee e1 join Employee e2 on e1.manager_id=e2.EmpId
+
+Write a query to find employees who earn more than the average salary of their department.
+                select name from Employee  e1 where salary>(select avg(salary) from Employee e2 where e1.department=e2.department group by  e2.department)
+
+
+
+Write a query to find the number of employees in each department, but only include departments with more than 5 employees.
+                select department,count(empID) as count from Employee group by department having count(empID)>5
+
+Write a query to find the employees who joined in the last 6 months.
+              select name from Employee where joinDAte>=Dateadd(month,-6,getDate());
+
+Write a query to fetch the employees who have the highest salary in each department.
+              SELECT e1.name, e1.salary FROM Employee e1 WHERE e1.salary = (SELECT MAX(e2.salary)FROM Employee e2 WHERE e1.department = e2.department)
+
+Write a query to fetch the employees who have the same salary as the average salary of their department
+              select e1.name,e1.salary from Employee e1 where e1.salary=(select avg(e2.salary) from Employee e2 where e1.dept=e2.dept)
+                
