@@ -1,0 +1,16 @@
+Write a query to fetch the employee details (name, department, and salary) of those earning more than the average salary of all employees in the company.
+
+                            select * from Employee where salary>(select avg(salary) from Employee);
+
+Write a query to fetch the details of employees who have the same salary as another employee in the same department.
+
+                      select e1.name from Employee e1 where e1.salary in (select e2.salary from Employee where e1.department=e2.department and e1.id!=e2.id)
+
+Write a query to find the department(s) where the maximum salary is greater than 1,00,000.
+
+                      SELECT department FROM Employee GROUP BY department HAVING MAX(salary) > 100000;
+
+Write a query to find the employees whose salaries are higher than the salaries of all employees in the 'HR' department
+                      select name from Employee where salary >(select max(salary) from Employee where department="HR");
+
+
