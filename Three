@@ -14,3 +14,27 @@ Write a query to find the employees whose salaries are higher than the salaries 
                       select name from Employee where salary >(select max(salary) from Employee where department="HR");
 
 
+
+Fetch the names of all students enrolled in the 'Computer Science' department.
+                    select name from Students where department='Computer Science'
+
+
+Find the number of students enrolled in each department.
+                    select department,count(id) as count_Of_Students from Students group by department
+
+List the names of professors who teach more than three subjects.
+                    SELECT p.name FROM Professors p JOIN Subjects s USING (professor_id) GROUP BY p.professor_id, p.name HAVING COUNT(s.subject_id) > 3;
+
+
+Retrieve the details of courses that have more than 50 students enrolled.
+                    select c.course_name from Courses c join Enrollments e on c.course_id=e.course_id group by course_id, course_name having count(student_id)>50
+Find the average grade of students in each subject.
+                     SELECT s.subject_name, AVG(g.grade) AS avg_grade FROM Grades g JOIN Subjects s USING(subject_id) GROUP BY s.subject_name;
+
+List the students who have enrolled in all the courses offered by the college.
+                    SELECT s.name  FROM Students s
+                    JOIN Enrollments e USING(student_id)
+                    JOIN Courses c USING(course_id)
+                    GROUP BY s.student_id, s.name
+                    HAVING COUNT(DISTINCT c.course_id) = (SELECT COUNT(course_id) FROM Courses);
+
