@@ -1,0 +1,2 @@
+Find the total number of students in each department who scored more than 75 in any subject.
+                      SELECT s.department, COUNT(DISTINCT g.StudentID) AS count FROM Students s JOIN Grades g USING(StudentID) WHERE g.Grade > 75 GROUP BY s.department;
