@@ -1,0 +1,10 @@
+
+
+1]Find the employees who earn the highest salary in their department.
+SELECT name, salary, dept_id
+FROM Employee E1
+WHERE salary = (
+    SELECT MAX(salary)
+    FROM Employee E2
+    WHERE E2.dept_id = E1.dept_id
+);
